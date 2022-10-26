@@ -22,6 +22,7 @@ class VarRecord:
         self.pos = vcf_row_dict["POS"]
         self.ref = vcf_row_dict["REF"]
         self.alt = vcf_row_dict["ALT"]
+        self.filter = vcf_row_dict["FILTER"]
         self.format = vcf_row_dict["FORMAT"]
         self.sample = dict(zip(self.format.split(":"), vcf_row_dict[sample].split(":")))
         self.hgvs = self.construct_hgvs()
@@ -111,7 +112,7 @@ class VarRecord:
         records = []
         for consequence in consequences:
             gene, gene_id, transcript_id, canonical = consequence
-            records.append([self.chrom, self.pos, self.ref, self.alt, depth, alt_depth, vaf, maf,
+            records.append([self.chrom, self.pos, self.ref, self.alt, self.filter, depth, alt_depth, vaf, maf,
                             gene, gene_id, str(transcript_id), str(canonical), most_severe_consequence,
                             self.annotation["variant_class"]])
 
